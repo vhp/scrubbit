@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "scrubbit"
+version = "1.0.0"
+description = "Overwrite and delete your Reddit history using your Reddit data export."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+keywords = ["reddit", "privacy", "gdpr", "claude-code"]
+classifiers = [
+    "Environment :: Console",
+    "Programming Language :: Python :: 3",
+    "Typing :: Typed",
+]
+
+[project.scripts]
+scrubbit = "scrubbit.cli:main"
+
+[dependency-groups]
+dev = ["mypy>=1.11", "pytest>=8.0", "ruff>=0.6"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F", "I", "N", "D", "UP", "B", "S", "C4", "SIM", "RET", "PT", "PTH",
+    "PL", "RUF", "ANN", "TC", "ERA", "BLE", "FBT",
+]
+# PLR0913: the client and options carry many settings by design.
+ignore = ["PLR0913"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "S101", "S105", "S106", "S311", "PLR0911", "PLR2004", "ANN", "FBT", "TC"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
